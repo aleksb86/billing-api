@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:13.3-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+
+  web:
+    image: web
+    build:
+      context: .
+    volumes:
+      - .:/usr/src
+      - ./images:/images
+    tmpfs:
+      - /usr/src/tmp/pids
+      - /usr/src/tmp/cache
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  postgres:
