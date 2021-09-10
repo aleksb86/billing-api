@@ -1,21 +1,8 @@
 # frozen_string_literal: true
 
-%w[
-  00000000000000042
-  00000000000000043
-  00000000000000044
-  00000000000000045
-  00000000000000046
-].each { |code| Account.create(code: code) }
+5.times { Account.create(code: Faker::Code.imei) }
 
-[
-  'Операции между счетами',
-  'Операции с валютой',
-  'Лизинговые операции',
-  'Перевод денежных средств',
-  'Оказание услуг',
-  'Выдача банковских гарантий'
-].each { |name| OperationName.create(name: name) }
+10.times { OperationName.create(name: Faker::Bank.name) }
 
 100.times do
   Operation.create(

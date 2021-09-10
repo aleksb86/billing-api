@@ -36,8 +36,8 @@ module Api
       def operations_by_range
         start_date = params[:start_date]&.to_time
         end_date = params[:end_date]&.to_time
-        Rails.logger.info "-----------#{params[:id]} #{start_date} #{end_date}"
-        render json: Reports::OperationsReport.operations_by_period(params[:id], start_date, end_date)
+        result = Reports::OperationsReport.operations_by_period(params[:id], start_date, end_date)
+        render json: Operations::ListPresenter.new(result).as_json
       end
 
       private

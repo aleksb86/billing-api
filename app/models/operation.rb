@@ -7,7 +7,7 @@ class Operation < ApplicationRecord
   scope :by_account, ->(account_id) { where(account_id: account_id) }
 
   before_create do
-    last_reminder = Operation.by_account(account_id).order(created_at: :asc).last&.reminder || 0
+    last_reminder = self.class.by_account(account_id).order(created_at: :asc).last&.reminder || 0
     self.reminder = last_reminder + amount
   end
 end
