@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "reminder": {
+          "type": "integer"
+        },
+        "account": {
+          "type": "string"
+        },
+        "operation_name": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "amount",
+        "reminder",
+        "account",
+        "operation_name",
+        "time"
+      ]
+    }
+  ]
+}

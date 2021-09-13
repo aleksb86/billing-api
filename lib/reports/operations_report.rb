@@ -2,12 +2,12 @@
 
 module Reports
   module OperationsReport
-    def self.operations_by_period(account_id, start_date, end_date)
+    def self.operations_by_period(account, start_date, end_date)
       return [] if start_date > end_date
 
       range = start_date..end_date
       Operation.includes(:account, :operation_name)
-               .where(account_id: account_id, created_at: range)
+               .where(account_id: account.id, created_at: range)
                .order(created_at: :asc)
     rescue StandardError => e
       Rails.logger.error e.message
