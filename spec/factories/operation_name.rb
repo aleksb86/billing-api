@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :operation_name do
-    name { "#{Faker::Bank.name}_#{rand(100)}" }
+    name { "#{Faker::Bank.name}_#{SecureRandom.hex(10)}" }
   end
 end

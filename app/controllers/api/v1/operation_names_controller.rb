@@ -1,10 +1,10 @@
 module Api
   module V1
     class OperationNamesController < ApplicationController
-      before_action :find_operation_name, only: [:update, :show, :destroy]
+      before_action :find_operation_name, only: %i[update show destroy]
 
       def index
-        as_json(OperationName.all, :ok)
+        as_json(OperationName.page(params[:page]).per(params[:per_page]), :ok)
       end
 
       def show

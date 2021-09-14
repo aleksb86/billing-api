@@ -1,13 +1,10 @@
 class Operation < ApplicationRecord
-  belongs_to :account, class_name: 'Account'
-  belongs_to :operation_name, class_name: 'OperationName'
+  belongs_to :account
+  belongs_to :operation_name
 
-  validates_presence_of :amount, :account, :operation_name
+  validates :amount, :account, :operation_name, presence: true
 
   scope :by_account, ->(account_id) { where(account_id: account_id) }
 
-  before_create do
-    last_reminder = self.class.by_account(account_id).order(created_at: :asc).last&.reminder || 0
-    self.reminder = last_reminder + amount
-  end
+  paginates_per 50
 end

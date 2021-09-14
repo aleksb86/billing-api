@@ -1,37 +1,73 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "array",
-  "items": [
-    {
+  "type": "object",
+  "properties": {
+    "start_remainder": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer"
-        },
         "amount": {
           "type": "integer"
         },
-        "reminder": {
-          "type": "integer"
-        },
-        "account": {
-          "type": "string"
-        },
-        "operation_name": {
-          "type": "string"
-        },
-        "time": {
+        "on_beginning_period": {
           "type": "string"
         }
       },
       "required": [
-        "id",
         "amount",
-        "reminder",
-        "account",
-        "operation_name",
-        "time"
+        "on_beginning_period"
+      ]
+    },
+    "end_remainder": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "on_end_of_period": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "on_end_of_period"
+      ]
+    },
+    "operations": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "amount": {
+              "type": "integer"
+            },
+            "account": {
+              "type": "string"
+            },
+            "operation_name": {
+              "type": "string"
+            },
+            "time": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "amount",
+            "account",
+            "operation_name",
+            "time"
+          ]
+        }
       ]
     }
+  },
+  "required": [
+    "start_remainder",
+    "end_remainder",
+    "operations"
   ]
 }

@@ -3,13 +3,18 @@ require './spec/support/json_matcher'
 
 describe 'Api::V1::Accounts', type: :request do
   shared_context 'make request' do
-    subject(:start_date) { (Time.now - 10.minutes).strftime('%Y-%m-%dT%T') }
-    subject(:end_date) { (Time.now + 10.minutes).strftime('%Y-%m-%dT%T') }
+    subject(:start_time) { Time.now }
+    subject(:end_time) { start_time + 1.minute }
     subject(:account) do
-      create(:account) { |account| create_list(:operation, 5, account: account) }
+      create(:account) { |account| create_list(:operation, 20, account: account) }
     end
-    subject(:params) { { start_date: start_date, end_date: end_date } }
     subject(:url) { "/api/v1/accounts/#{account.id}/operations_by_range/" }
+    subject(:params) do
+      {
+        start_time: start_time.strftime('%Y-%m-%dT%T'),
+        end_time: end_time.strftime('%Y-%m-%dT%T')
+      }
+    end
 
     before { get url, params: params }
   end
@@ -22,8 +27,8 @@ describe 'Api::V1::Accounts', type: :request do
         expect(response).to have_http_status(200)
       end
 
-      it 'should returns ten operations' do
-        expect(JSON.parse(response.body).size).to eq(5)
+      it 'should returns twenty operations' do
+        expect(JSON.parse(response.body)['operations'].size).to eq(20)
       end
 
       it 'should match "operations_by_range" schema' do
@@ -59,14 +64,14 @@ describe 'Api::V1::Accounts', type: :request do
       end
 
       context 'with future time range' do
-        subject(:start_date) { (Time.now + 5.minutes).strftime('%Y-%m-%dT%T') }
+        subject(:start_time) { Time.now + 1.day }
 
         it 'should returns status 200' do
           expect(response).to have_http_status(200)
         end
 
         it 'should returns empty operations' do
-          expect(JSON.parse(response.body)).to match_array([])
+          expect(response).to match_json_schema('operations_by_range_empty')
         end
       end
     end

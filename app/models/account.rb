@@ -1,6 +1,8 @@
 class Account < ApplicationRecord
   has_many :operations, dependent: :destroy
 
-  validates_presence_of :code
+  validates :code, presence: true
   validates :code, uniqueness: true
+
+  paginates_per 50
 end

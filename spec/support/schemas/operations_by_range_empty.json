@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "end_remainder": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "on_end_of_period": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "on_end_of_period"
+      ]
+    },
+    "operations": {
+      "type": "array",
+      "items": {}
+    },
+    "start_remainder": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "on_beginning_period": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "on_beginning_period"
+      ]
+    }
+  },
+  "required": [
+    "end_remainder",
+    "operations",
+    "start_remainder"
+  ]
+}

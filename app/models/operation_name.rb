@@ -1,6 +1,8 @@
 class OperationName < ApplicationRecord
-  has_many :operations
+  has_many :operations, dependent: :restrict_with_exception
 
-  validates_presence_of :name
+  validates :name, presence: true
   validates :name, uniqueness: true
+
+  paginates_per 50
 end
